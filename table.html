@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="./bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <style>
+        *{box-sizing: border-box;direction: rtl;}
+    </style>
+</head>
+
+<body>
+    <div class="container">
+                    <table id="maintable" class="table table-sm">
+                        <thead>
+                            <tr>
+                                <td>-</td>
+                                <td>صنف</td>
+                                <td>عدد</td>
+                                <td>سعر</td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody id="tablebody">
+                            <tr>
+                                <td>-</td>
+                                <td>تست</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><select class="form-control" id="menuelist"></select></td>
+                                <td><input class="form-control" type="number" name="price" id="itemprice" min="1" value="1" required></td>
+                                <td><input class="form-control" type="number" name="price" id="itemprice" min="1" value="1" required></td>
+                                <td>' + "actions" + '</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+    <div>
+        <select name="" id="" class="form-control">
+            <option value=""></option>
+        </select>
+    </div>
+    <script src="./bootstrap-4.6.0-dist/js/jquery-3.6.0.min.js"></script>
+    <script src="./bootstrap-4.6.0-dist/js/jquery-3.6.0.slim.min.js"></script>
+    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="./bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/eb694f31e6.js" crossorigin="anonymous"></script>
+    <script>
+
+var ocount = 0;
+function addRow() {
+    ocount +=1 ;
+    var newrow = document.createElement("tr");
+  var row = '<tr>' +
+            '<td>'+ ocount +'</td>'+
+            '<td><select class="form-control" id="menuelist"></select></td>' +
+            '<td><input class="form-control" type="number" name="price" id="itemprice" min="1" value="1" required></td>' +
+            '<td><input class="form-control" type="number" name="price" id="itemprice" min="1" value="1" required></td>' +
+			'<td>' + "actions" + '</td>' +
+        '</tr>';
+    newrow.innerHTML = row;
+    document.getElementById('tablebody').appendChild(newrow);
+}
+
+
+addRow();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Table</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="./bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css_js/css/ordertable.css">
+</head>
+<body>
+    <div class="container" style="margin-top: 20px;text-align: right;">
+        <div class="row">
+  
+                <!------------Table----------------------------------------------------------------->
+                <div class="container-lg">
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <div class="row justify-content-end">
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-dark" onclick="reload()"> تحديث<i class="fas fa-redo-alt"></i></button>
+                                </div>
+
+                            </div>
+                            <div class="table-title">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 6%;">-</th>
+                                            <th style="width: 10%;">بواسطة</th>
+                                            <th style="width: 15%;">عميل</th>
+                                            <th style="width: 15%;">عنوان</th>
+                                            <th style="width: 10%;">اوردر</th>
+                                            <th style="width: 10%;">مجموع</th>
+                                            <th style="width: 8%;">تخيض</th>
+                                            <th style="width: 8%;">سعر</th>
+                                            <th style="width: 8%;">قيد التنفيذ</th>
+                                            <th style="width: 8%;">خيارات</th>
+                                            
+                                        </tr>
+                                        
+                                        
+                                    </thead>
+                                    <tbody id="tablebody">
+                                       
+                                        <!-- <tr >
+                                            <td colspan="9" class="hiddenRow"><div class="accordian-body collapse" id="demo1"> Demo Content1 </div> </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!----------end of table------------------------------------------------------------------>
+                
+            
+        </div>
+    </div>
+
+    <script src="./bootstrap-4.6.0-dist/js/jquery-3.6.0.min.js"></script>
+    <script src="./bootstrap-4.6.0-dist/js/jquery-3.6.0.slim.min.js"></script>
+    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="./bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/eb694f31e6.js" crossorigin="anonymous"></script>
+    <script src="./css_js/js/ordertable.js"></script>
+</body>
+</html>

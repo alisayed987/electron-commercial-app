@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="./bootstrap-4.6.0-dist/css/bootstrap.min.css">
+    <style>
+        body {background-color:#92A8D1}
+        label {float: right;margin-right: 20px;}
+        input {border-radius: 3px ;}
+    </style>
+
+</head>
+<body>
+    <div style="margin: 20px;">
+        <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">الأسم</label>
+                <input id="username" type="text" class="form-control" required>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">كلمة المرور</label>
+                <input id="passw" type="password" class="form-control" required>
+              </div>
+              <div id="err" class="mb-3" style="display: none;color: darkred;">
+                أسم المستخدم أو كلمة المررو غير صحيحة
+              </div>
+
+
+              <button type="submit" class="btn btn-primary" id="sbtn">تسجيل الدخول</button>
+        </form>
+    </div>
+    <script src="./bootstrap-4.6.0-dist/js/jquery-3.6.0.min.js"></script>
+    <script src="./bootstrap-4.6.0-dist/js/jquery-3.6.0.slim.min.js"></script>
+    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="./bootstrap-4.6.0-dist/js/bootstrap.min.js"></script>
+    <script>
+        const electron = require('electron');
+        const {ipcRenderer} = electron;
+        const myform = document.querySelector('form');
+        myform.addEventListener("submit",function(e){
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('passw').value;
+            if(username && password){
+                ipcRenderer.send('user_pass',{user:username,pass:password})
+              
+            }
+           
+        });
+        ipcRenderer.on('err',function(event,sentItem){
+            if(sentItem == 'user_pass_err'){
+               document.getElementById('err').style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>
