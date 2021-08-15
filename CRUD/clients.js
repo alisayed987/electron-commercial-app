@@ -1,5 +1,5 @@
 const {ipcMain} = require('electron');
-const clientModel = require('../models/clientmodel.js');
+const clientModel = require('../models/clientsmodel.js');
 
 
 //save client -------------------------------------------------------------------------

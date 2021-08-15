@@ -3,21 +3,26 @@ const {app,BrowserWindow,Menu,ipcMain} = electron;
 const url = require('url');
 const path = require('path');
 require('./database.js');
+//::::::::::::::::::::::::
 require('./CRUD/account');
+require('./CRUD/menu')
+require('./CRUD/orders')
+require('./CRUD/purchases');
+require('./CRUD/goods')
 require('./CRUD/clients');
-require('./CRUD/menue')
-require('./CRUD/order')
+require('./CRUD/merchants')
+require('./CRUD/alarms')
+//::::::::::::::::::::::::
 
-
-
-
-const UserModel = require('./models/usermodel.js');
-const { Console } = require('console');
+const UserModel = require('./models/accountsmodel');
 
 
 const token ={user: 'admin',state:'admin'};
 let mainWindow;
 let loginWindow;
+let orderWindow;
+let ordertableWindow;
+let ordereditWindow;
 
 
 //*************************************************************************************************** */
@@ -125,12 +130,12 @@ function createOrderWindow(){
 
 //-------------------------------------------------------------------------------------------------
 function createOrderTableWindow(){
-    orderWindow = new BrowserWindow({
+    ordertableWindow = new BrowserWindow({
         title: 'orderTable',
         webPreferences: {nodeIntegration:true,contextIsolation:false}
     });
 
-    orderWindow.loadURL(url.format({
+    ordertableWindow.loadURL(url.format({
         pathname: path.join(__dirname,'ordertable.html'),
         protocol: 'file',
         slashes: true
@@ -139,21 +144,21 @@ function createOrderTableWindow(){
 }
 //-------------------------------------------------------------------------------------------------
 function createEditOrderWindow(id){
-    orderWindow = new BrowserWindow({
+    ordereditWindow = new BrowserWindow({
         title: 'orderTable',
         webPreferences: {nodeIntegration:true,contextIsolation:false}
         
     });
 
-    orderWindow.loadFile(path.join(__dirname,`editorder.html`), {query: {"id": JSON.stringify(id)}});
+    ordereditWindow.loadFile(path.join(__dirname,`editorder.html`), {query: {"id": JSON.stringify(id)}});
 }
 
 //-------------------------------------------------------------------------------------------------
 
 
 app.on('ready',async ()=>{
-//    createOrderTableWindow();
+   createOrderTableWindow();
 //    createOrderWindow();
 // createLoginWindow();
-createMainWindow();
+// createMainWindow();
 });

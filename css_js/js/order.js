@@ -24,9 +24,6 @@ document.getElementById('orderbtn').addEventListener('click', () => {
     document.getElementById('tablebody').appendChild(newrow);
     ipcRenderer.send('loadItems', true);
 
-
-
-
 });
 //------------------------------------------------------
 function price(a) {

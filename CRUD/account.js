@@ -1,5 +1,5 @@
 const {ipcMain} = require('electron');
-const UserModel = require('../models/usermodel.js');
+const UserModel = require('../models/accountsmodel');
 
 
 //save Account -------------------------------------------------------------------------
