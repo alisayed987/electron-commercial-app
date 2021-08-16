@@ -26,21 +26,21 @@
 
                             </div>
                             <div class="table-title">
-                                <table class="table table-bordered" >
+                                <table class="table table-bordered" id="maintable" >
                                     <thead>
                                         <tr>
                                             <th style="width: 6%;">-</th>
                                             <th style="width: 10%;">بواسطة</th>
-                                            <th style="width: 5%;">الاسم</th>
+                                            <th style="width: 10%;">الاسم</th>
                                             <th style="width: 10%;">عميل</th>
                                             <th style="width: 15%;">عنوان</th>
                                             <th style="width: 10%;">اوردر</th>
-                                            <th style="width: 10%;">مجموع</th>
-                                            <th style="width: 8%;">تخفيض</th>
-                                            <th style="width: 6%;">سعر</th>
-                                            <th style="width: 6%;">قيد التنفيذ</th>
-                                            <th style="width: 4%;">مدفوع</th>
-                                            <th style="width: 8%;">خيارات</th>
+                                            <th style="width: 10%;">سعر</th>
+                                            <th style="width: 5%;">تخفيض</th>
+                                            <th style="width: 6%;">بعد التخفيض</th>
+                                            <th style="width: 3%;">قيد التنفيذ</th>
+                                            <th style="width: 3%;">مدفوع</th>
+                                            <th style="width: 7%;">خيارات</th>
                                             
                                         </tr>
                                         
@@ -53,6 +53,34 @@
                                         </tr> -->
                                     </tbody>
                                 </table>
+                            </div>
+
+                            <div class="row justify-content-end">
+                                <div class="col-2" style="margin-top: 20px;">
+                                    <span id="pagespan"></span>
+                                </div>
+                                <div class="col-3">
+                                    <nav aria-label="...">
+                                        <ul class="pagination pagination-lg">
+                                          <li class="page-item">
+                                            <span class="page-link" onclick="previousPage()">Previous</span>
+                                          </li>
+                                          <li class="page-item active">
+                                            <a class="page-link" onclick="nextPage()">Next</a>
+                                          </li>
+                                        </ul>
+                                      </nav>
+                                </div>
+                                
+                                <div class="col-1">
+                                    <select class="form-control" name="state" id="maxRows" onchange="pageSizeChange(this)">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                    </select>
+                                </div>
+                                
+
                             </div>
                         </div>
                     </div>

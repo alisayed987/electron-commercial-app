@@ -1,7 +1,7 @@
 const {model,Schema} = require('mongoose')
 
 const merchantSchema = new Schema({
-    merchant: {type:String,require:true},
+    merchant: {type:String,require:true,unique: true},
     address: {type:String,require:true},
     phone: {type:String,require:true},
     balance : {type:Number,require:true}

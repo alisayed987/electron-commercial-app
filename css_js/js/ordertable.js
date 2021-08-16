@@ -2,7 +2,9 @@ const electron = require('electron');
 const { ipcRenderer } = electron;
 
 //<<<<<<<<<<<<<<---globals---<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
+let pages = 0;
+let page_size = 5;
+let current_page = 1;
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 
@@ -25,8 +27,21 @@ const { ipcRenderer } = electron;
 
 
 window.addEventListener('DOMContentLoaded', (event) => {
-   getpage(1,10);
+    ipcRenderer.send('countQuery')
+    ipcRenderer.on('countedQuery',(e,rec)=>{
+        pages = Math.ceil(rec/page_size)
+        document.getElementById("pagespan").innerHTML = " صفحة "+current_page + " من " +pages 
+    })
+   getpage(current_page,page_size);
 });
+//--------------------------------------------------------
+function pageSizeChange(athis){
+    page_size = parseInt(athis.value);
+    
+    restoreTable()
+    getpage(current_page,page_size)
+
+}
 //----------------------------------------------------------------------------------
 
 function getpage(N,S){
@@ -36,7 +51,7 @@ function getpage(N,S){
 
 ipcRenderer.on('loadedOrders', (event, rec) => {
     const recArray = JSON.parse(rec);
-    console.log(recArray)
+    // console.log(recArray)
     var ocount = 0;
     recArray.forEach(element => {
         ocount += 1;
@@ -60,17 +75,17 @@ ipcRenderer.on('loadedOrders', (event, rec) => {
             '<td>'+ (element.paid?'<i class="fa fa-check" aria-hidden="true"></i>':'<i class="fa fa-times" aria-hidden="true"></i>') +'</td>'+
             '<td>' +'<i onclick="editfun(this)" id="editicon' + ocount + '" class="far fa-edit" style="color: rgb(255, 238, 0);display:inline;"></i><i id="afterediticon' + ocount + '" onclick="afteredit(this)" class="fas fa-pencil-alt" style="color:rgb(53, 194, 18);display:none;"></i><i id="delete' + ocount + '" onclick="odelete(this)" class="fas fa-trash-alt" style="color:rgb(209, 2, 2);display:inline;"></i>' + '</td>' +
             '</tr>'
-        console.log(newrow)
+        // console.log(newrow)
         document.getElementById('tablebody').appendChild(newrow);
 
         var collapse_row = document.createElement("tr");
         var tdata = document.createElement("td");
-        tdata.setAttribute("colspan","10");
+        tdata.setAttribute("colspan","12");
         tdata.setAttribute("class","hiddenRow");
         tdata.innerHTML += 
             '<div id="order'+ ocount+'" class="accordian-body collapse" style="width:100%">'+
             // '<pre>'+'-'+ele.index+'-   '+'صنف:'+ ele.type +'          '+'سعر:'+ ele.price +'          '+ 'كمية:' + ele.quantity+'          ' +'السعر الكلي:'+ele.totalprice+ '</pre>'+
-            '<table style="margin:auto;width:80%; min-width:300px;"><thead><tr>'+
+            '<table style="margin:auto;width:60%; min-width:300px;"><thead><tr>'+
                         '<th>-</th>'+
                         '<th>الفئة</th>'+
                         '<th>الصنف</th>'+
@@ -95,7 +110,7 @@ ipcRenderer.on('loadedOrders', (event, rec) => {
             '<td>'+ele.price+'</td>'+
             '<td>'+ele.total+'</td>'+
             '</tr>'
-            console.log(orderRow)
+            // console.log(orderRow)
             document.getElementById("table"+ocount).append(orderRow)
         });
         
@@ -116,10 +131,12 @@ function editfun(these) {
 };
 //------------------------------------------------------------------
 function odelete(a) {
+    console.log(a.id)
     const offset = getIndex(a.id);
     var answer = window.confirm("تاكيد المسح؟");
     if(answer){
         ipcRenderer.send('deleteOrder',document.getElementById('id'+offset).innerHTML)
+        reload()
     }
 }
 // //------------------------------------------------------
@@ -129,6 +146,29 @@ function getIndex(id) {
 //-------------------------------------------------------
 function reload(){
     location.reload();
+}
+//---------------------------------------------------------
+function restoreTable(){
+    document.getElementById("tablebody").remove()
+    const newbody = document.createElement("tbody")
+    newbody.setAttribute("id","tablebody")
+    document.getElementById("maintable").appendChild(newbody)
+}
+//table pagination-------------------------------------------
+function previousPage(){
+    if(current_page>1) {
+        current_page-1;
+        restoreTable();
+        getpage(current_page,page_size)
+    }
+}
+
+function nextPage(){
+    if(current_page<pages) {
+        current_page+1;
+        restoreTable();
+        getpage(current_page,page_size);
+}
 }
 
 

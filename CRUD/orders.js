@@ -28,6 +28,14 @@ ipcMain.on('loadOrders',async(event,recieved)=>{
     event.reply('loadedOrders',JSON.stringify(order));
 
 });
+//count query -------------------------------------------------------------------------
+ipcMain.on('countQuery',async(event)=>{
+    orderModel.count({by:"ali"},(err,n)=>{
+        console.log("from IN")
+        event.reply('countedQuery',n)
+    })
+})
+
 // //get 1 order (price)----------------------------------------------------------------------
 // ipcMain.on('getorder',async(event,recieved)=>{
 //         var order = await orderModel.find({"order":recieved.str});

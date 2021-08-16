@@ -144,7 +144,9 @@ button{
     justify-content: end;
     
 }
-
+table table{
+    margin: auto;
+}
 table table tr{
     border-bottom: 1px solid rgb(214, 211, 211);
 }
