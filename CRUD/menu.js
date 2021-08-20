@@ -1,4 +1,5 @@
 const {ipcMain} = require('electron');
+const { distinct } = require('../models/menuemodel.js');
 const menueModel = require('../models/menuemodel.js');
 
 
@@ -31,16 +32,32 @@ ipcMain.on('deleteItem',async(event,recieved)=>{
 });
 
 //get Items -------------------------------------------------------------------------
+ipcMain.on('loadCategories',async(event,recieved)=>{
+    if(recieved){
+        await menueModel.find().distinct("category",(err,res)=>event.reply('loadedCategories',res));
+      
+}
+});
+//-----------------------------------------------------------------------------------
 ipcMain.on('loadItems',async(event,recieved)=>{
     if(recieved){
-        var menue = await menueModel.find();
+        console.log(recieved)
+        var menue = await menueModel.find({"category":recieved});
       event.reply('loadedItems',menue);
 }
 });
 //get 1 item (price)----------------------------------------------------------------------
-ipcMain.on('getItem',async(event,recieved)=>{
+ipcMain.on('getPrice',async(event,recieved)=>{
         var item = await menueModel.find({"item":recieved.str});
       event.reply('sentPrice',{"item":item,"index":recieved.index});
+
+});
+//------------------------------------------------------------------------
+ipcMain.on('getItems',async(event,recieved)=>{
+    console.log(recieved)
+    var items = await menueModel.find({"category":recieved.str});
+    console.log(items)
+  event.reply('sentItems',{"items":items,"index":recieved.index});
 
 });
 

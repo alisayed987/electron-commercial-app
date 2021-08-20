@@ -9,7 +9,6 @@
 </head>
 <body>
     <div class="container-fluid" style="margin-top: 20px;text-align: right">
-        <div style="width: 40px;text-align: center;" id="tst" ><img src="./pic/back.svg" style="transform: rotate(180deg)" width="38px"></div>
         <div class="row">
   
                 <!------------Table----------------------------------------------------------------->
@@ -19,63 +18,18 @@
                             <div class="row" style="text-align: center;font-size: 40px;padding: 10px;"> <div style="width: 100%;margin: -50px 0px 30px 0px;"> <span style="box-shadow: -7px 5px 17px -5px rgba(74,74,74,0.81);padding: 20px;border-radius: 7px;color: white;margin-bottom: 5px;background-color: #2196F3;">أوردرات</span> </div> </div>
                             <div class="container-fluid" style="border: 2px solid #2196F3;border-radius: 10px;">
                                 
-                                <div class="row">
-                                    <div class="col-4">
-                                        <label for="q_by">بواسطة</label>
-                                        <select id="q_by" class="form-control">
-                                            <option value="-">-</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-4">
-                                        <label for="q_client">عميل</label>
-                                        <select id="q_client" class="form-control">
-                                            <option value="-">-</option>
-                                        </select>
-                                    </div>
+                                <div class="row" style="margin: 8px;">
                                     <div class="col-4">
                                         <label for="q_name">الاسم</label>
                                         <select id="q_name" class="form-control">
                                             <option value="-">-</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4" style="margin-bottom: 8px;">
-                                        <label for="q_date">التاريخ</label>
-                                        <select id="q_date" class="form-control">
-                                            <option value="-">-</option>
-                                            <option value="day1">اليوم</option>
-                                            <option value="day2">امس</option> </option>
-                                            <option value="day3">3 ايام</option>
-                                            <option value="day7">اسبوع</option>
-                                            <option value="day15">15 يوم</option>
-                                            <option value="month">شهر</option>
-                                            <option value="bmonth">قبل شهر</option>
-                                        </select>
-                                    </div>
-                                    
                                     <div class="col-2">
-                                        
-                                        <!-- Rounded switch -->
-                                        <label>قيد التنفيذ</label>
-                                        <label class="switch">
-                                            <input id="q_progress" type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-2">
-                            
-                                        <!-- Rounded switch -->
-                                        <label>مدفوع</label>
-                                        <label class="switch">
-                                            <input id="q_paid" type="checkbox" checked>
-                                            <span class="slider round"></span>
-                                        </label>
-                                    </div>
-                                    <div class="col-2">
-                                        <button type="button" class="btn btn-dark" onclick="query()"> بحث<i class="fas fa-search"></i></button>
+                                        <button type="button" class="btn btn-primary" onclick="query()" style="margin:20px;padding:10px"> بحث<i class="fas fa-search"></i></button>
                                     </div>
                                 </div>
+                                
                                    
                             </div>
                             <div class="row justify-content-end">
@@ -93,19 +47,8 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 6%;">-</th>
-                                            <th style="width: 10%;">بواسطة</th>
-                                            <th style="width: 10%;">الاسم</th>
-                                            <th style="width: 10%;">عميل</th>
-                                            <th style="width: 15%;">عنوان</th>
-                                            <th style="width: 8%;">الوقت</th>
-                                            <th style="width: 10%;">اوردر</th>
-                                            <th style="width: 10%;">سعر</th>
-                                            <th style="width: 5%;">تخفيض</th>
-                                            <th style="width: 6%;">بعد التخفيض</th>
-                                            <th style="width: 4%;">قيد التنفيذ</th>
-                                            <th style="width: 4%;">مدفوع</th>
-                                            <th style="width: 7%;">خيارات</th>
-                                            
+                                            <th style="width: 10%;">اسم المستخدم</th> 
+                                            <th style="width: 10%;"></th> 
                                         </tr>
                                         
                                         

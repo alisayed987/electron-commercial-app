@@ -10,10 +10,11 @@
 </head>
 
 <body>
-
-    <div class="container" style="margin-top: 20px;text-align: right;">
+    <div style="width: 40px;text-align: center;" id="tst" ><img src="./pic/back.svg" style="transform: rotate(180deg)" width="38px"></div>
+    <div class="container-fluid" style="margin-top: 20px;text-align: right;">
+        <div class="row" style="text-align: center;font-size: 40px;padding: 10px;"> <div style="width: 100%;margin: -50px 0px 30px 0px;"> <span style="box-shadow: -7px 5px 17px -5px rgba(74,74,74,0.81);padding: 20px;border-radius: 7px;color: white;margin-bottom: 5px;background-color: #2196F3;">اضافة طلب</span> </div> </div>
         <div class="row">
-            <div class="col">
+            <div class="col-3">
                 <div class="row">
                     <div id="ordermum">
                         
@@ -25,6 +26,15 @@
                         </label>
                     </div>
                 </div>
+                <div class="row">
+                    <div>
+                        <label>مدفوع</label>
+                        <label class="switch">
+                            <input id="q_paid" type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
                 <div>
                     <label for="bylist">بواسطة</label>
                     <select id="bylist" class="form-control">
@@ -32,26 +42,30 @@
                 </div>
                 <div>
                     <label for="clientlist">عميل</label>
-                    <select id="clientlist" class="form-control"></select>
-                </div>
-
-                <label for="addressin">العنوان</label>
-                <div class="input-group mb-3">
-                    <textarea name="address"  id="address" class="form-control" cols="30" rows="2" disabled></textarea>
+                    <select id="clientlist" class="form-control" disabled>
+                        <option value="-">-</option>
+                    </select>
                     <div class="input-group-prepend">
                         <div class="input-group-text">
                             <input type="checkbox" id="addresscheck">
                         </div>
                     </div>
+                    
+                </div>
+
+                <label for="addressin">العنوان</label>
+                <div class="input-group mb-3">
+                    <textarea name="address"  id="address" class="form-control" cols="30" rows="2"></textarea>
+                    
                 </div>
 
             </div>
 
             <div class="col">
                 <!------------Table----------------------------------------------------------------->
-                <div class="container-lg">
+                <div class="container">
                     <div class="table-responsive">
-                        <div class="table-wrapper">
+                        <div class="table-wrapper" style="box-shadow: -7px 5px 17px -5px rgba(74,74,74,0.81);margin: 10px;">
                             <div class="table-title">
                                 <div class="row">
                                     <div class="col-sm-8">
@@ -66,12 +80,13 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th style="width: 6%;">-</th>
-                                        <th style="width: 30%;">صنف</th>
+                                        <th style="width: 4%;">-</th>
+                                        <th style="width: 25%;">فئة</th>
+                                        <th style="width: 25%;">صنف</th>
                                         <th style="width: 8%;">عدد</th>
                                         <th style="width: 10%;">سعر</th>
-                                        <th style="width: 15%;">السعر الكلي</th>
-                                        <th style="width: 16%;">خيارات</th>
+                                        <th style="width: 13%;">السعر الكلي</th>
+                                        <th style="width: 13%;">خيارات</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tablebody">

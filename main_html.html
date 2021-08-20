@@ -72,17 +72,32 @@
   text-align: right;
   padding-right: 10px;
 }
+.c1{
+    margin-bottom: 10px;
+    border-color: #333;
+}
+.ch1{
+    background-color: #007bff;
+    color:white;
+    
+}
+.navbar-expand-md {
+    height: 50px;
+    background-color: rgb(74, 146, 206);
+    border-bottom:4px solid #333 ;
+    border-bottom-left-radius: 30px;
+}
 
     </style>
 </head>
 <body>
 <!-- Bootstrap NavBar -->
-<nav class="navbar navbar-expand-md navbar-dark bg-primary" style="height: 40px;">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#">
-      <img src="https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+      <img src="./pic/25716-logo-generator.svg" width="30" height="30" class="d-inline-block align-top" alt="">
       <span class="menu-collapsed">My Bar</span>
     </a>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -121,15 +136,15 @@
       <!-- Sidebar -->
       <div id="sidebar-container" class="sidebar-expanded d-none d-md-block" style="float: right;"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
           <!-- Bootstrap List Group -->
-          <ul class="list-group" style="padding: unset;">
+          <ul class="list-group" style="padding: unset; border-top:2px solid white">
               <!-- Separator with title -->
               <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
                   <small>MAIN MENU</small>
               </li>
               <!-- /END Separator -->
               <a href="#" class="bg-dark list-group-item list-group-item-action" style="height:100px;">
-                <div class="d-flex w-100 justify-content-start align-items-center" style="margin: 20px 0px;">
-                    <span class="far fa-plus-square fa-2x" style="margin:0px 10px;"></span>
+                <div class="d-flex w-100 justify-content-start align-items-center" style="margin: 20px 0px;" id="addOrder">
+                    <span class="far fa-plus-square" style="margin:0px 10px;"></span>
                     <span class="menu-collapsed" style="font-size: 23px;"> اضافة طلب </span>
                 </div>
             </a>
@@ -243,12 +258,85 @@
               </a>
               <!-- Logo -->
               <li class="list-group-item logo-separator d-flex justify-content-center">
-                  <img src='https://v4-alpha.getbootstrap.com/assets/brand/bootstrap-solid.svg' width="30" height="30" />    
+                  <img src='./pic/25716-logo-generator.svg' width="30" height="30" />    
               </li>   
           </ul><!-- List Group END-->
       </div><!-- sidebar-container END -->
   
-      <!-- MAIN -->
+      <div class="col">
+          
+        <div class="row" style="margin: 10px;">
+          <div class="col-lg-4 col-md-6">
+              <div class="card  text-center c1" id="card1">
+                  <h4 class="card-header ch1">حسابات</h4>
+                  <div class="card-body">
+                        <img src="./pic/account.svg" width="100px">
+                      </div>
+                  </div>
+              </div>
+              <div class="col-lg-4 col-md-6">
+                <div class="card  text-center c1" id="card2">
+                    <h4 class="card-header ch1">عملاء</h4>
+                    <div class="card-body">
+                          <img src="./pic/customer.svg" width="100px">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card  text-center c1" id="card3">
+                        <h4 class="card-header ch1">تجار</h4>
+                        <div class="card-body">
+                            <img src="./pic/vendor.svg" width="100px">
+                            </div>
+                        </div>
+                    </div>
+          </div>
+          <div class="row" style="margin: 10px;">
+            <div class="col-lg-4 col-md-6">
+                <div class="card  text-center c1" id="card4">
+                    <h4 class="card-header ch1">المنيو</h4>
+                    <div class="card-body">
+                        <img src="./pic/menu.svg" width="100px">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card  text-center c1" id="card5">
+                        <h4 class="card-header ch1"> طلبات</h4>
+                        <div class="card-body">
+                            <img src="./pic/note.svg" width="100px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card  text-center c1" id="card6">
+                            <h4 class="card-header ch1">مشتريات</h4>
+                            <div class="card-body">
+                                  <img src="./pic/order.svg" width="100px">
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            <div class="row" style="margin: 10px;">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card  text-center c1" id="card7">
+                        <h4 class="card-header ch1">بضائع</h4>
+                        <div class="card-body">
+                              <img src="./pic/box.svg" width="100px">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="card  text-center c1" id="card8">
+                            <h4 class="card-header ch1">تنبيهات</h4>
+                            <div class="card-body">
+                                  <img src="./pic/bell.svg" width="100px">
+                                </div>
+                            </div>
+                        </div>
+                </div>
+    </div>
+</div>
       
       
   </div><!-- body-row END -->
@@ -259,35 +347,39 @@
    <script src="https://kit.fontawesome.com/eb694f31e6.js" crossorigin="anonymous"></script>
    <script>
    $(document).ready(function () {
-
+    const electron = require('electron');
+    const { ipcRenderer } = electron;
     // Hide submenus
-$('#body-row .collapse').collapse('hide'); 
+    $('#body-row .collapse').collapse('hide'); 
 
-// Collapse/Expand icon
-$('#collapse-icon').addClass('fa-angle-double-right'); 
-
-// Collapse click
-$('[data-toggle=sidebar-colapse]').click(function() {
-    SidebarCollapse();
-});
-
-function SidebarCollapse () {
-    $('.menu-collapsed').toggleClass('d-none');
-    $('.sidebar-submenu').toggleClass('d-none');
-    $('.submenu-icon').toggleClass('d-none');
-    $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
-    
-    // Treating d-flex/d-none on separators with title
-    var SeparatorTitle = $('.sidebar-separator-title');
-    if ( SeparatorTitle.hasClass('d-flex') ) {
-        SeparatorTitle.removeClass('d-flex');
-    } else {
-        SeparatorTitle.addClass('d-flex');
-    }
-    
     // Collapse/Expand icon
-    $('#collapse-icon').toggleClass('fa-angle-double-right fa-angle-double-left');
-}
+    $('#collapse-icon').addClass('fa-angle-double-right'); 
+
+    // Collapse click
+    $('[data-toggle=sidebar-colapse]').click(function() {
+        SidebarCollapse();
+    });
+
+    function SidebarCollapse () {
+        $('.menu-collapsed').toggleClass('d-none');
+        $('.sidebar-submenu').toggleClass('d-none');
+        $('.submenu-icon').toggleClass('d-none');
+        $('#sidebar-container').toggleClass('sidebar-expanded sidebar-collapsed');
+        
+        // Treating d-flex/d-none on separators with title
+        var SeparatorTitle = $('.sidebar-separator-title');
+        if ( SeparatorTitle.hasClass('d-flex') ) {
+            SeparatorTitle.removeClass('d-flex');
+        } else {
+            SeparatorTitle.addClass('d-flex');
+        }
+        
+        // Collapse/Expand icon
+        $('#collapse-icon').toggleClass('fa-angle-double-right fa-angle-double-left');
+    }
+
+    document.getElementById("card1").addEventListener('click',(e)=>{ipcRenderer.send('openAccounts')})
+    document.getElementById("addOrder").addEventListener('click',(e)=>{ipcRenderer.send('addOrder')})
 
 });</script>
 </body>

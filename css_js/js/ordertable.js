@@ -7,51 +7,33 @@ let page_size = 5;
 let current_page = 1;
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
-
-
-// $('#demo').pagination({
-//     dataSource: [{a :1}, {a :2}, {a :3}, {a :4}, ... , {a :50}],
-//     pageSize: 8,
-//     formatResult: function(data) {
-//         for (var i = 0, len = data.length; i < len; i++) {
-//             data[i].a = data[i].a + ' - bad guys';
-//         }
-//     },
-//     callback: function(data, pagination) {
-//         // template method of yourself
-//         var html = template(data);
-//         dataContainer.html(html);
-//     }
-// })
-
-
+window.onload = (e)=>{
+    ipcRenderer.send("get-query-options")
+}
 
 window.addEventListener('DOMContentLoaded', (event) => {
-    ipcRenderer.send('countQuery')
-    ipcRenderer.on('countedQuery',(e,rec)=>{
-        pages = Math.ceil(rec/page_size)
-        document.getElementById("pagespan").innerHTML = " صفحة "+current_page + " من " +pages 
-    })
-   getpage(current_page,page_size);
+    updatePages()
+    query();
 });
 //--------------------------------------------------------
 function pageSizeChange(athis){
     page_size = parseInt(athis.value);
     
     restoreTable()
-    getpage(current_page,page_size)
+    query()
+    updatePages()
 
 }
 //----------------------------------------------------------------------------------
 
-function getpage(N,S){
-    ipcRenderer.send('loadOrders', {pageNum:N,pageSize:S});
-}
-//----------------------------------------------------------------------------------
+// function getpage(N,S){
+//     ipcRenderer.send('loadOrders', {pageNum:N,pageSize:S});
+// }
+// Main function ----------------------------------------------------------------------------------
 
 ipcRenderer.on('loadedOrders', (event, rec) => {
+    restoreTable()
     const recArray = JSON.parse(rec);
-    // console.log(recArray)
     var ocount = 0;
     recArray.forEach(element => {
         ocount += 1;
@@ -67,6 +49,7 @@ ipcRenderer.on('loadedOrders', (event, rec) => {
             '<td>'+(element.name?element.name:'-')+'</td>'+
             '<td>'+(element.client?element.client:'-')+'</td>'+
             '<td>'+(element.address?element.address:'-')+'</td>'+
+            '<td>'+((new Date(element.time_stamp)).toLocaleTimeString('it-IT'))+'</td>'+
             '<td id="showOrder'+ocount+'">' +'<i class="far fa-caret-square-down"></i>'+'order' +'</td>'+
             '<td>'+element.total+'</td>'+
             '<td>'+(element.discount?element.discount:'-')+'</td>'+
@@ -121,8 +104,6 @@ ipcRenderer.on('loadedOrders', (event, rec) => {
 //------------------------------------------------------
 
 // //------------------------------------------------------
-
-// //------------------------------------------------------
 function editfun(these) {
     const offset = getIndex(these.id);
     // console.log(document.getElementById('id'+offset).innerHTML);
@@ -147,7 +128,7 @@ function getIndex(id) {
 function reload(){
     location.reload();
 }
-//---------------------------------------------------------
+// delete table contents --------------------------------------------------------------
 function restoreTable(){
     document.getElementById("tablebody").remove()
     const newbody = document.createElement("tbody")
@@ -155,27 +136,161 @@ function restoreTable(){
     document.getElementById("maintable").appendChild(newbody)
 }
 //table pagination-------------------------------------------
+function updatePages(){
+    var qobj = {}
+    if(document.getElementById("q_by").value!="-")  qobj["by"] = document.getElementById("q_by").value
+    if(document.getElementById("q_client").value!="-")  qobj["client"] = document.getElementById("q_client").value
+    if(document.getElementById("q_name").value!="-")  qobj["name"] = document.getElementById("q_name").value
+    qobj["in_progress"] = document.getElementById("q_progress").checked
+    qobj["paid"] = document.getElementById("q_paid").checked
+    var date = document.getElementById("q_date").value
+    if(date == "day1") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate());
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "day2") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-1);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "day3") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-2);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "day7") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-6);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "day15") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-14);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "month") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-29);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    console.log(qobj)
+    ipcRenderer.send('countQuery',qobj)
+    ipcRenderer.on('countedQuery',(e,rec)=>{
+        console.log("rec",rec)
+        current_page = 1;
+        pages = Math.ceil(rec/page_size)
+        document.getElementById("pagespan").innerHTML = " صفحة "+current_page + " من " +pages 
+    })
+}
+
+// Next & previous buttons ----------------------------------------------------------------------
 function previousPage(){
     if(current_page>1) {
-        current_page-1;
+        current_page-=1;
         restoreTable();
-        getpage(current_page,page_size)
+        // getpage(current_page,page_size)
+        query()
+        document.getElementById("pagespan").innerHTML = " صفحة "+current_page + " من " +pages 
     }
 }
 
 function nextPage(){
     if(current_page<pages) {
-        current_page+1;
+        current_page+=1;
         restoreTable();
-        getpage(current_page,page_size);
+        // getpage(current_page,page_size);
+        query()
+        document.getElementById("pagespan").innerHTML = " صفحة "+current_page + " من " +pages 
 }
 }
 
+// Date-------------------------------------------------------------------------------------------
 
 
+// Query -----------------------------------------------------------------------------------------
+ipcRenderer.on("send-query-data",(event,res)=> {
+    res.by.forEach(element => {
+        var Option = document.createElement("option");
+        Option.text = element;
+        document.getElementById('q_by').add(Option);
+    });
+    res.client.forEach(element => {
+        var Option = document.createElement("option");
+        Option.text = element;
+        document.getElementById('q_client').add(Option);
+    });
+    res.name.forEach(element => {
+        var Option = document.createElement("option");
+        Option.text = element;
+        document.getElementById('q_name').add(Option);
+    });
+})
+
+function query(){
+    var qobj = {}
+    if(document.getElementById("q_by").value!="-")  qobj["by"] = document.getElementById("q_by").value
+    if(document.getElementById("q_client").value!="-")  qobj["client"] = document.getElementById("q_client").value
+    if(document.getElementById("q_name").value!="-")  qobj["name"] = document.getElementById("q_name").value
+    qobj["in_progress"] = document.getElementById("q_progress").checked
+    qobj["paid"] = document.getElementById("q_paid").checked
+    var date = document.getElementById("q_date").value
+    if(date == "day1") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate());
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "day2") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-1);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "day3") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-2);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "day7") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-6);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "day15") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-14);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    else if(date == "month") {
+        var d = new Date()
+        d.setHours(0,0,0,0)
+        d.setDate(d.getDate()-29);
+        qobj["time_stamp"] = {"$gte": d}
+    }
+    console.log(qobj)
+    ipcRenderer.send('loadOrders', {pageNum:current_page,pageSize:page_size,query:qobj});
+    
+}
+
+
+// Jquery -----------------------------------------------------------------------------------------
 $('.accordian-body').on('show.bs.collapse', function () {
     $(this).closest("table")
         .find(".collapse.in")
         .not(this)
-        //.collapse('toggle')
+})
+
+document.getElementById('tst').addEventListener('click',e =>{
+    window.close()
+    
 })

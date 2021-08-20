@@ -15,6 +15,9 @@ require('./CRUD/alarms')
 //::::::::::::::::::::::::
 
 const UserModel = require('./models/accountsmodel');
+const clientModel = require('./models/clientsmodel.js');
+const OrderModel = require('./models/ordermodel.js');
+const { ipcRenderer } = require('electron');
 
 
 const token ={user: 'admin',state:'admin'};
@@ -92,11 +95,6 @@ function createLoginWindow(){
 }
 //-------------------------------------------------------------------------------------------------
 function createMainWindow(){
-    mainWindow = new BrowserWindow({
-        title:'Main',
-        webPreferences: {nodeIntegration: true,contextIsolation: false}
-    });
-
     //load the html
     mainWindow.loadURL(url.format({
         pathname: path.join(__dirname,'main_html.html'),
@@ -112,11 +110,14 @@ function createMainWindow(){
         app.quit();
       });
     
+    
 }
 //-------------------------------------------------------------------------------------------------
 function createOrderWindow(){
     orderWindow = new BrowserWindow({
         title: 'order',
+        parent: mainWindow,
+        fullscreen:true,
         webPreferences: {nodeIntegration:true,contextIsolation:false}
     });
 
@@ -132,6 +133,8 @@ function createOrderWindow(){
 function createOrderTableWindow(){
     ordertableWindow = new BrowserWindow({
         title: 'orderTable',
+        parent: mainWindow,
+        fullscreen:true,
         webPreferences: {nodeIntegration:true,contextIsolation:false}
     });
 
@@ -146,6 +149,8 @@ function createOrderTableWindow(){
 function createEditOrderWindow(id){
     ordereditWindow = new BrowserWindow({
         title: 'orderTable',
+        parent: mainWindow,
+        fullscreen:true,
         webPreferences: {nodeIntegration:true,contextIsolation:false}
         
     });
@@ -154,11 +159,28 @@ function createEditOrderWindow(id){
 }
 
 //-------------------------------------------------------------------------------------------------
-
-
+//=================================================================================================
+ipcMain.on('get-query-options',async(event)=>{
+    
+    var dataobj = {}
+    await UserModel.find().distinct("user",(err,res)=>dataobj["by"]=res);
+    await clientModel.find().distinct("client",(err,res)=>dataobj["client"]=res);
+    await OrderModel.find().distinct("name",(err,res)=>dataobj["name"]=res);
+    event.reply("send-query-data",dataobj)
+})
+// //=================================================================================================
+// //=================================================================================================
+ipcMain.on('openAccounts',(e)=>{createOrderTableWindow();})
+ipcMain.on('addOrder',(e)=>{createOrderWindow();})
+// //=================================================================================================
 app.on('ready',async ()=>{
-   createOrderTableWindow();
-//    createOrderWindow();
+// createOrderTableWindow();
+// createOrderWindow();
 // createLoginWindow();
-// createMainWindow();
+mainWindow = new BrowserWindow({
+    title:'Main',
+    fullscreen:true,
+    webPreferences: {nodeIntegration: true,contextIsolation: false}
+});
+createMainWindow();
 });

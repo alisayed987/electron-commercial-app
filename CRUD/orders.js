@@ -24,17 +24,31 @@ ipcMain.on('deleteOrder',async(event,recieved)=>{
 
 //get orders -------------------------------------------------------------------------
 ipcMain.on('loadOrders',async(event,recieved)=>{
-    var order = await orderModel.find().skip((recieved.pageNum-1)*recieved.pageSize).limit(recieved.pageSize);
-    event.reply('loadedOrders',JSON.stringify(order));
+    console.log(recieved)
+    if(recieved.query){
+        var query = await orderModel.find(recieved.query).skip((recieved.pageNum-1)*recieved.pageSize).limit(recieved.pageSize);
+        console.log(query)
+        event.reply('loadedOrders',JSON.stringify(query));
+    }
+    else{
+        var order = await orderModel.find().skip((recieved.pageNum-1)*recieved.pageSize).limit(recieved.pageSize);
+        event.reply('loadedOrders',JSON.stringify(order));
+        console.log(order)
+    }
+    
 
 });
 //count query -------------------------------------------------------------------------
-ipcMain.on('countQuery',async(event)=>{
-    orderModel.count({by:"ali"},(err,n)=>{
-        console.log("from IN")
+ipcMain.on('countQuery',async(event,rec)=>{
+    console.log(rec)
+    orderModel.count(rec,(err,n)=>{
         event.reply('countedQuery',n)
     })
 })
+// Query --------------------------------------------------------
+
+
+
 
 // //get 1 order (price)----------------------------------------------------------------------
 // ipcMain.on('getorder',async(event,recieved)=>{

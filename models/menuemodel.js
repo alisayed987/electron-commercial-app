@@ -6,6 +6,6 @@ const menueSchema = new Schema({
     price:{type:Number,require:true},
     quantity:{type:Number,required:true}    
 });
-const menueModel =  model('Menue',menueSchema);
+const menueModel =  model('Menu',menueSchema);
 
 module.exports = menueModel;
